@@ -5,102 +5,149 @@
 <title>글목록...</title>
 <link rel="stylesheet" th:href="@{/css/footer.css}">
 <link rel="stylesheet" th:href="@{/css/header.css}">
+<link rel="stylesheet" th:href="@{/css/resume/style.css}">
 <script src="https://kit.fontawesome.com/630c352365.js" crossorigin="anonymous"></script>
-
-<link rel="stylesheet" th:href="@{/css/board.css}">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 </head>
 <body>
-	<div th:replace="~{header::header-fragment}"></div>
+    <div th:replace="~{header::header-fragment}"></div>
+    <h1 id="resume-title">이력서 등록 (TEST SUBMIT <<)</h1>
+    <form id="search">
+        <main id="resume-container">
+            <div class="resume-name">
+                <label for="resume-input">이력서 제목</label><input type="text" id="resume-input" placeholder="이름을 입력하세요." name="title" th:value="${title}"/>
+            </div>
+            <h2>개인 정보</h2>
+            <section class="resume-info">
+                <div class="info-box">
+                    <label for="resume-info-name">이름</label>
+                    <input type="text" id="resume-info-name" placeholder="이름을 입력하세요." name="name" th:value="${name}"/>
+                </div>
+                <div class="info-box">
+                    <label for="resume-info-birthday-year">생년월일</label>
+                    <div class="flex g-13">
+                        <input type="text" id="resume-info-birthday-year" placeholder="1990" name="birthday_year" th:value="${birthday_year}" />
+                        <input type="text" id="resume-info-birthday-month" placeholder="월" name="birthday_month" th:value="${birthday_month}"/>
+                        <input type="text" id="resume-info-birthday-day" placeholder="일" name="birthday_day" th:value="${birthday_day}"/>
+                    </div>
+                </div>
+                <div class="info-box">
+                    <label>성별</label>
+                    <input type="radio" name="gender" id="resume-info-gender-man" th:checked="${gender eq 'male'}" th:value="male"/>
+                    <label for="resume-info-gender-man" class="ml-5 mr-12">남자</label>
+                    <input type="radio" name="gender" id="resume-info-gender-girl" th:checked="${gender eq 'female'}" th:value="female" >
+                    <label for="resume-info-gender-girl" class="ml-5">여자</label>
+                </div>
+                <div class="info-box">
+                    <label for="resume-info-phone-next">핸드폰 번호</label>
+                    <div class="flex g-13">
+                        <select id="resume-info-phone-prev">
+                            <option>
+                                +82
+                            </option>
+                        </select>
+                        <input type="text" id="resume-info-phone-next" placeholder="'-' 제외하고 입력해주세요." name="phone" th:value="${phone}"/>
+                    </div>
+                </div>
+                <div class="info-box">
+                    <label for="resume-info-email-prev">이메일</label>
+                    <div class="flex g-13">
+                        <input type="text" id="resume-info-email-prev" placeholder="이메일" name="email_prev" th:value="${email_prev}" />
+                        <span> @ </span>
+                        <input type="text" id="resume-info-email-next" name="email_next" th:value="${email_next}" />
+                    </div>
+                </div>
+                <div class="info-box">
+                    <label for="resume-info-address-prev" class="align-self-start">주소</label>
+                    <div class="flex g-13">
+                        <input type="text" id="resume-info-address-prev" placeholder="우편번호" name="zonecode" th:value="${zonecode}" />
+                        <button type="button" class="postcode-btn border-gray">
+                            우편번호 검색
+                        </button>
+                        <input type="text" id="resume-info-address-next" placeholder="주소" class="full-width" name="address"  th:value="${address}" />
+                    </div>
+                </div>
+            </section>
+            <h2>학력사항</h2>
+            <section class="resume-edu">
+                <div class="info-box">
+                    <label for="resume-edu-last-prev">최종학력</label>
+                    <div class="flex g-13">
+                        <input type="text" id="resume-edu-last-prev" name="edu_last_prev" th:value="${edu_last_prev}" />
+                        <input type="text" id="resume-edu-last-next" name="edu_last_next" th:value="${edu_last_next}" />
+                    </div>
+                </div>
+                <div class="info-box">
+                    <label for="resume-edu-detail_prev">상세학력</label>
+                    <div class="flex g-13">
+                        <input type="text" id="resume-edu-detail_prev" name="edu_detail_prev" th:value="${edu_detail_prev}" />
+                        <input type="text" id="resume-edu-detail_next" name="edu_detail_next" th:value="${edu_detail_next}" />
+                    </div>
 
-	<div id="container">
-	  <section class="notice">
-        <div class="board-title">
-            <div class="board">
-                <h3>이력서</h3>
-            </div>
-        </div>
-        <div class="board-menu">
-            <div class="board">
-                <a href="#" class="menu-link checked">공지사항</a>
-                <a href="#" class="menu-link ">QNA</a>
-                <a href="#" class="menu-link">자유게시판</a>
-                <a href="#" class="menu-link">리뷰</a>
-            </div>
-        </div>
-        
-        
-    
-        <!-- board list area -->
-        <div id="board-list">
-            <div class="board">
-                <table class="board-table">
-                    <thead>
-                        <tr>
-                            <th class="th-num">NO</th>
-                            <th class="th-title">제목</th>
-                            <th class="th-id">작성자</th>
-                            <th class="th-date">작성일</th>
-                            <th class="th-hit">조회수</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>12</td>
-                            <td><a th:href="@{/board/detail}">공지사항</a></td>
-                            <td>관리자</td>
-                            <td>2024.01.30</td>
-                            <td>114</td>
-                        </tr>
-                        <tr>
-                            <td>12</td>
-                            <td><a th:href="@{/board/detail}">공지사항</a></td>
-                            <td>관리자</td>
-                            <td>2024.01.30</td>
-                            <td>114</td>
-                        </tr>
-                        <tr>
-                            <td>12</td>
-                            <td><a th:href="@{/board/detail}">공지사항</a></td>
-                            <td>관리자</td>
-                            <td>2024.01.30</td>
-                            <td>114</td>
-                        </tr>
-                        <tr>
-                            <td>12</td>
-                            <td><a th:href="@{/board/detail}">공지사항</a></td>
-                            <td>관리자</td>
-                            <td>2024.01.30</td>
-                            <td>114</td>
-                        </tr>
-                        
-                        <tr>
-                            <td>12</td>
-                            <td><a th:href="@{/board/detail}">공지사항</a></td>
-                            <td>관리자</td>
-                            <td>2024.01.30</td>
-                            <td>114</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </section>
+                </div>
+            </section>
+            <h2>경력사항</h2>
+            <section class="resume-career">
+                <div class="info-box">
+                    <label for="resume-career">상세학력</label>
+                    <input type="text" id="resume-career" name="career" th:value="${career}"/>
+                </div>
+            </section>
+            <h2>기타사항</h2>
+            <section class="resume-etc">
+                <div class="info-box">
+                    <label>병역사항</label>
+                    <input type="radio" name="etc" id="resume-etc-none" th:checked="${etc eq 'none'}" th:value="none"/>
+                    <label for="resume-etc-none" class="ml-5 mr-12">해당없음</label>
+                    <input type="radio" name="etc" id="resume-etc-req" th:checked="${etc eq 'req'}" th:value="req" >
+                    <label for="resume-etc-req" class="ml-5 mr-12">병역필</label>
+                    <input type="radio" name="etc" id="resume-etc-exemption" th:checked="${etc eq 'exemption'}" th:value="exemption" >
+                    <label for="resume-etc-exemption" class="ml-5 mr-12">면제</label>
+                    <input type="radio" name="etc" id="resume-etc-not-yet" th:checked="${etc eq 'not_yet'}" th:value="not_yet" >
+                    <label for="resume-etc-not-yet" class="ml-5">미필</label>
+                </div>
+            </section>
+            <h2>자기소개</h2>
+            <section class="resume-introduce">
+                <div class="info-box">
+                    <label for="resume-introduce-growth">성장과정</label>
+                    <textarea id="resume-introduce-growth" name="growth" th:value="${growth}" >
+                    </textarea>
+                </div>
+                <div class="info-box">
+                    <label for="resume-introduce-specialty">장단점 및 특기</label>
+                    <textarea id="resume-introduce-specialty" name="specialty" th:value="${specialty}"></textarea>
+                </div>
+                <div class="info-box">
+                    <label for="resume-introduce-exp">경험 및 경력사항</label>
+                    <textarea id="resume-introduce-exp" name="exp" th:value="${exp}"></textarea>
+                </div>
+            </section>
+        </main>
+    </form>
 
-    <!-- 검색 -->
-    <div class="search-container">
-        <div class="input-wrapper">
-            <select id="search-select" name="field">
-                <option value="제목">제목</option>
-                <option value="작성자">작성자</option>
-            </select>
-            <input type="text" id="search-input" size="10%">
-            <button id="search-button">
-                <i class="fas fa-search"></i> <!-- 돋보기 아이콘 -->
-            </button>
-        </div>
-        <a th:href="@{/board/write}"><button id="write">글쓰기</button></a>
-    </div>
-    
-    <div th:replace="~{footer::footer-fragment}"></div>
 </body>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+    $(document).ready(function() {
+        $("#resume-title").click(function() {
+            // 폼을 제출
+            $("#search").submit();
+        });
+        $(".postcode-btn").click(function() {
+            // 우편 주소
+             new daum.Postcode({
+                oncomplete: function(data) {
+                const zc = $("#resume-info-address-prev");
+                const address = $("#resume-info-address-next");
+                if(!zc || !address) return;
+                zc.val(data.zonecode);
+                address.val(data.address);
+                $("#search").submit();
+            }
+        }).open();
+        });
+    });
+</script>
+
 </html>
