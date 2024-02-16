@@ -20,10 +20,9 @@ public class BoardController {
 	public String boardWriteForm() {
 		return "board/write";
 	}
-@GetMapping("/qna")
+
+	@GetMapping("/qna")
 	public String boardQnaForm() {
 		return "board/qna";
 	}
-
-
 }
