@@ -44,41 +44,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>12</td>
-                            <td><a th:href="@{/board/detail}">공지사항</a></td>
-                            <td>관리자</td>
-                            <td>2024.01.30</td>
-                            <td>114</td>
-                        </tr>
-                        <tr>
-                            <td>12</td>
-                            <td><a th:href="@{/board/detail}">공지사항</a></td>
-                            <td>관리자</td>
-                            <td>2024.01.30</td>
-                            <td>114</td>
-                        </tr>
-                        <tr>
-                            <td>12</td>
-                            <td><a th:href="@{/board/detail}">공지사항</a></td>
-                            <td>관리자</td>
-                            <td>2024.01.30</td>
-                            <td>114</td>
-                        </tr>
-                        <tr>
-                            <td>12</td>
-                            <td><a th:href="@{/board/detail}">공지사항</a></td>
-                            <td>관리자</td>
-                            <td>2024.01.30</td>
-                            <td>114</td>
-                        </tr>
-                        
-                        <tr>
-                            <td>12</td>
-                            <td><a th:href="@{/board/detail}">공지사항</a></td>
-                            <td>관리자</td>
-                            <td>2024.01.30</td>
-                            <td>114</td>
+                        <tr id="board_list" th:each="noti : ${notiList}">
+                            <td th:text="${noti.id}"></td>
+                            <td><a th:href="@{/noti/detail}" th:text="${noti.title}"></a></td>
+                            <td th:text="${noti.author}"></td>
+                            <td th:text="${noti.createdDate}"></td>
+                            <td th:text="${noti.views}"></td>
                         </tr>
                     </tbody>
                 </table>

@@ -34,65 +34,23 @@
         <div id="review-board">
             <div class="review1">
                 <table class="review-table">
-                    <div class="review-list">
+                    <div class="review-list" th:each="review : ${reviewList}">
                         <div class="review-title">
-                            <a th:href="@{/rboard/detail}"><p>제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다</p></a> 
+                            <a th:href="@{/rboard/detail}" th:text="${review.title}"></a>
                         </div>
-                        <div class="review-content">
-                            <p>내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다</p>
-                        </div>
-                        
+                        <div class="review-content" th:text="${review.content}"></div>
+
                         <div class="review-profile">    
                             <img th:src="@{/images/board/avatar.png}" class="profile_img">
                             <div class="profile">
-                                <span class="p1">jihun</span>
-                                <span class="p2">2024.02.01 </span> 
-                                <span class="sp1"><i class="fa-regular fa-eye"></i> 1 </span> 
-                                <span class="sp2"><i class="fa-regular fa-heart"></i> 1 </span>
-                                <span class="sp3"><i class="fa-regular fa-comment"></i> 1 </span>
+                                <span class="p1" th:text="${review.author}"></span>
+                                <span class="p2" th:text="${review.createdDate}"></span>
+                                <span class="sp1" th:text="${review.likes}"><i class="fa-regular fa-eye"></i></span>
+                                <span class="sp2" th:text="${review.rating}"><i class="fa-regular fa-heart"></i> 1 </span>
+                                <span class="sp3" th:text="${review.views}"><i class="fa-regular fa-comment"></i> 1 </span>
                             </div>
                             <div class="review_img">
-                                <img th:src="@{/images/board/bg_default.png}" width="120" height="120">
-                            </div>
-                        </div>
-                        <div class="review-title">
-                            <a th:href="@{/rboard/detail}"><p>제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다</p></a> 
-                        </div>
-                        <div class="review-content">
-                            <p>내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다</p>
-                        </div>
-                        
-                        <div class="review-profile">    
-                            <img th:src="@{/images/board/avatar.png}" class="profile_img">
-                            <div class="profile">
-                                <span class="p1">jihun</span>
-                                <span class="p2">2024.02.01 </span> 
-                                <span class="sp1"><i class="fa-regular fa-eye"></i> 1 </span> 
-                                <span class="sp2"><i class="fa-regular fa-heart"></i> 1 </span>
-                                <span class="sp3"><i class="fa-regular fa-comment"></i> 1 </span>
-                            </div>
-                            <div class="review_img">
-                                <img th:src="@{/images/board/bg_default.png}" width="120" height="120">
-                            </div>
-                        </div>
-                        <div class="review-title">
-                            <a th:href="@{/rboard/detail}"><p>제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다</p></a> 
-                        </div>
-                        <div class="review-content">
-                            <p>내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다</p>
-                        </div>
-                        
-                        <div class="review-profile">    
-                            <img th:src="@{/images/board/avatar.png}" class="profile_img">
-                            <div class="profile">
-                                <span class="p1">jihun</span>
-                                <span class="p2">2024.02.01 </span> 
-                                <span class="sp1"><i class="fa-regular fa-eye"></i> 1 </span> 
-                                <span class="sp2"><i class="fa-regular fa-heart"></i> 1 </span>
-                                <span class="sp3"><i class="fa-regular fa-comment"></i> 1 </span>
-                            </div>
-                            <div class="review_img">
-                                <img th:src="@{/images/board/bg_default.png}" width="120" height="120">
+                                <img th:src="${review.imageURL}" width="120" height="120">
                             </div>
                         </div>
                     </div>

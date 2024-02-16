@@ -44,12 +44,12 @@
                       </tr>
                       </thead>
                       <tbody>
-                      <tr id="board_list" th:each="qna : ${qnaList}">
-                          <td th:text="${qna.id}"></td>
-                          <td><a th:href="@{/qna/detail}" th:text="${qna.title}"></a></td>
-                          <td th:text="${qna.author}"></td>
-                          <td th:text="${qna.createdDate}"></td>
-                          <td th:text="${qna.views}"></td>
+                      <tr id="board_list" th:each="free : ${freeList}">
+                          <td th:text="${free.id}"></td>
+                          <td><a th:href="@{/free/detail}" th:text="${free.title}"></a></td>
+                          <td th:text="${free.author}"></td>
+                          <td th:text="${free.createdDate}"></td>
+                          <td th:text="${free.views}"></td>
                       </tr>
                       </tbody>
                   </table>
