@@ -154,10 +154,23 @@ public class BoardService {
         return freeRepository.findById(id)
 				.orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다."));
 	}
+	public Page<Free> findFreeListByKeyword(String keyword, Pageable pageable) {
+		int page = pageable.getPageNumber() - 1;
+		int pageSize = 10;
+		pageable = PageRequest.of(page, pageSize, Sort.Direction.DESC, "id");
+		return freeRepository.findByTitleContaining(keyword, pageable);
+	}
+
 
 	public Qna findQnaById(Long id) {
 		return qnaRepository.findById(id)
 				.orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다."));
+	}
+	public Page<Qna> findQnaListByKeyword(String keyword, Pageable pageable) {
+		int page = pageable.getPageNumber() - 1;
+		int pageSize = 10;
+		pageable = PageRequest.of(page, pageSize, Sort.Direction.DESC, "id");
+		return qnaRepository.findByTitleContaining(keyword, pageable);
 	}
 
 	public Noti findNotiById(Long id) {
@@ -165,9 +178,22 @@ public class BoardService {
 				.orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다."));
 	}
 
+	public Page<Noti> findNotiListByKeyword(String keyword, Pageable pageable) {
+		int page = pageable.getPageNumber() - 1;
+		int pageSize = 10;
+		pageable = PageRequest.of(page, pageSize, Sort.Direction.DESC, "id");
+		return notiRepository.findByTitleContaining(keyword, pageable);
+	}
+
 	public Review findReviewById(Long id) {
 		return reviewRepository.findById(id)
 				.orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다."));
+	}
+	public Page<Review> findReviewListByKeyword(String keyword, Pageable pageable) {
+		int page = pageable.getPageNumber() - 1;
+		int pageSize = 10;
+		pageable = PageRequest.of(page, pageSize, Sort.Direction.DESC, "id");
+		return reviewRepository.findByTitleContaining(keyword, pageable);
 	}
 
 //	public Page<Board> findListAllByType(String type, Pageable pageable) {
