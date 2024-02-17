@@ -1,11 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<html xmlns:th="http://www.thymeleaf.org" >
 <head>
 <meta charset="UTF-8">
-<meta name="_csrf_header" th:content="${_csrf.headerName}">
-<meta name="_csrf" th:content="${_csrf.token}">
-<title>Index...</title>
+<title> 상세페이지</title>
 <link rel="stylesheet" th:href="@{/css/board.css}">
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 </head>
@@ -19,11 +16,11 @@
                         <div class="detail-title">
                             <p>제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다</p>
                         </div>
-                        <div class="detail-profile">    
+                        <div class="detail-profile">
                             <img th:src="@{/images/board/avatar.png}" class="profile_img">
                             <div class="profile1">
                                 <span class="pp1">jihun</span><br>
-                                <span class="pp2">2024.02.01 </span> 
+                                <span class="pp2">2024.02.01 </span>
                             </div>
                         </div>
                         <div class="detail_img">
@@ -33,7 +30,7 @@
                             <p>내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다</p>
                         </div>
                         <div>
-                            <span class="sp4"><i class="fa-regular fa-eye"></i> 1 </span> 
+                            <span class="sp4"><i class="fa-regular fa-eye"></i> 1 </span>
                             <span class="sp5"><i class="fa-regular fa-heart"></i> 1 </span>
                             <span class="sp6"><i class="fa-regular fa-comment"></i> 1 </span>
                         </div>
@@ -44,13 +41,13 @@
                         <img th:src="@{/images/board/avatar.png}" class="write_img">
                         <div class="reply-write">
                         <input type="text" id="reply-input" placeholder="댓글을 남겨주세요">
-                        <input type="button" value="댓글" id="reply-write">     
+                        <input type="button" value="댓글" id="reply-write">
                         </div>
                     </div>
                     <div class="reply-title"><h3>댓글 6</h3></div>
 
                     <!-- 댓글목록 -->
-                    <div class="reply-list">    
+                    <div class="reply-list">
                         <div class="reply-profile">
                             <img th:src="@{/images/board/avatar.png}" class="profile_img">
                             <span class="p3">jihun</span>
@@ -60,7 +57,7 @@
                             <span class="pp3">2024.02.01 </span>
                         </div>
                     </div>
-                    <div class="reply-list">    
+                    <div class="reply-list">
                         <div class="reply-profile">
                             <img th:src="@{/images/board/avatar.png}" class="profile_img">
                             <span class="p3">jihun</span>
@@ -70,7 +67,7 @@
                             <span class="pp3">2024.02.01 </span>
                         </div>
                     </div>
-                    <div class="reply-list">    
+                    <div class="reply-list">
                         <div class="reply-profile">
                             <img th:src="@{/images/board/avatar.png}" class="profile_img">
                             <span class="p3">jihun</span>
@@ -80,7 +77,7 @@
                             <span class="pp3">2024.02.01 </span>
                         </div>
                     </div>
-                    <div class="reply-list">    
+                    <div class="reply-list">
                         <div class="reply-profile">
                             <img th:src="@{/images/board/avatar.png}" class="profile_img">
                             <span class="p3">jihun</span>

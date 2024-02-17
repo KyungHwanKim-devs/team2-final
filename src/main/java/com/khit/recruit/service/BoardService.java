@@ -150,6 +150,26 @@ public class BoardService {
 		notiRepository.save(noti);
 	}
 
+	public Free findFreeById(Long id) {
+        return freeRepository.findById(id)
+				.orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다."));
+	}
+
+	public Qna findQnaById(Long id) {
+		return qnaRepository.findById(id)
+				.orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다."));
+	}
+
+	public Noti findNotiById(Long id) {
+		return notiRepository.findById(id)
+				.orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다."));
+	}
+
+	public Review findReviewById(Long id) {
+		return reviewRepository.findById(id)
+				.orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다."));
+	}
+
 //	public Page<Board> findListAllByType(String type, Pageable pageable) {
 //		int page = pageable.getPageNumber() - 1; //db는 현재페이지보다 1 작아야함
 //		int pageSize = 10;

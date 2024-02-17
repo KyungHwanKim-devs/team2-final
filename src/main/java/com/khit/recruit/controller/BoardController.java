@@ -15,10 +15,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -90,8 +87,32 @@ public class BoardController {
 		model.addAttribute("endPage", endPage);
 		return "board/free";
 	}
-	@GetMapping("/detail")
-	public String boardDetailForm() {
+//	@GetMapping("/detail/{id}")
+	@GetMapping("/detail/{id}")
+	public String boardDetailForm(
+			@PageableDefault(page = 1) Pageable pageable,
+			@RequestParam(name = "boardType", required = false) String boardType,
+			@PathVariable Long id,
+			Model model
+	) {
+        switch (boardType) {
+            case "free" -> {
+                Free free = boardService.findFreeById(id);
+                model.addAttribute("board", free);
+            }
+            case "qna" -> {
+                Qna qna = boardService.findQnaById(id);
+                model.addAttribute("board", qna);
+            }
+            case "noti" -> {
+                Noti noti = boardService.findNotiById(id);
+                model.addAttribute("board", noti);
+            }
+            case "review" -> {
+                Review review = boardService.findReviewById(id);
+                model.addAttribute("board", review);
+            }
+        }
 		return "board/detail";
 	}
 	@GetMapping("/write")
