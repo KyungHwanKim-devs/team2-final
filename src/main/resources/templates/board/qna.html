@@ -46,7 +46,7 @@
                       <tbody>
                       <tr id="board_list" th:each="qna : ${qnaList}">
                           <td th:text="${qna.id}"></td>
-                          <td><a th:href="@{/qna/detail}" th:text="${qna.title}"></a></td>
+                          <td><a th:href="@{/board/detail/}+${qna.id}+@{?boardType=qna}" th:text="${qna.title}"></a></td>
                           <td th:text="${qna.author}"></td>
                           <td th:text="${qna.createdDate}"></td>
                           <td th:text="${qna.views}"></td>
@@ -70,10 +70,16 @@
                     <i class="fas fa-search"></i> <!-- 돋보기 아이콘 -->
                 </button>
             </div>
-            <a th:href="@{/board/write(boardType='noti')}"><button id="write">글쓰기</button></a>
+            <a th:href="@{/board/write(boardType='qna')}"><button id="write">글쓰기</button></a>
         </div>
     </div>
     
     <div th:replace="~{footer::footer-fragment}"></div>
 </body>
+<script>
+    function search() {
+        const value = document.getElementById("search-input").value;
+        window.location.href = `http://localhost:8080/board/qna?keyword=${value}`
+    }
+</script>
 </html>

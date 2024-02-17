@@ -95,6 +95,7 @@ public class BoardController {
 			@PathVariable Long id,
 			Model model
 	) {
+		model.addAttribute("boardType", boardType);
         switch (boardType) {
             case "free" -> {
                 Free free = boardService.findFreeById(id);
@@ -106,7 +107,7 @@ public class BoardController {
             }
             case "noti" -> {
                 Noti noti = boardService.findNotiById(id);
-                model.addAttribute("board", noti);
+                model.addAttribute("board", noti);	
             }
             case "review" -> {
                 Review review = boardService.findReviewById(id);
@@ -120,6 +121,7 @@ public class BoardController {
 			Model model,
 			@RequestParam(name = "boardType") String boardType
 	) {
+		model.addAttribute("boardType", boardType);
 		switch (boardType) {
 			case "free":
 				model.addAttribute("board", new Free());

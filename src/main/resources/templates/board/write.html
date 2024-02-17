@@ -18,14 +18,14 @@
 	<div th:replace="~{header::header-fragment}"></div>
     <div id="container">
       <section class="board-write">
-        <form th:action="@{/board/write}" method="post">
+        <form th:action="@{/board/write}" method="post" id="write-form">
         	<div class="write-category">
 	            <h2>1. 작성할 게시판을 선택해주세요.</h2>
 	            <select id="category">
-	                <option value="공지사항">공지사항</option>
-	                <option value="QNA">QNA</option>
-	                <option value="자유게시판">자유게시판</option>
-	                <option value="리뷰">리뷰</option>
+	                <option value="noti" th:selected="${boardType eq 'noti'}">공지사항</option>
+	                <option value="qna" th:selected="${boardType eq 'qna'}">QNA</option>
+	                <option value="free" th:selected="${boardType eq 'free'}">자유게시판</option>
+	                <option value="review" th:selected="${boardType eq 'review'}">리뷰</option>
 	            </select>
 	        </div>
 	        <div class="write-title">
@@ -54,16 +54,16 @@
 			<div class="write-star">
             	<h2>5. 별점을 선택해주세요.(5점 만점)</h2>
 	            <div class="star-wrapper">
-	                <img th:src="@{/images/job/star.svg}" alt="star">
-					<img th:src="@{/images/job/star.svg}" alt="star">
-					<img th:src="@{/images/job/star.svg}" alt="star">
-					<img th:src="@{/images/job/star.svg}" alt="star">
-					<img th:src="@{/images/job/star.svg}" alt="star">
+	                <img data-pos="1" th:src="@{/images/job/star_selected.svg}" alt="star">
+					<img data-pos="2" th:src="@{/images/job/star.svg}" alt="star">
+					<img data-pos="3" th:src="@{/images/job/star.svg}" alt="star">
+					<img data-pos="4" th:src="@{/images/job/star.svg}" alt="star">
+					<img data-pos="5" th:src="@{/images/job/star.svg}" alt="star">
 	            </div>
        		</div>
 	        <div class="flex-between write-btns">
 	            <a th:href="@{/board/list}"><button id="w1">취소</button></a>
-	            <a th:href="@{/board/list}"><button id="w2">게시글 등록하기</button></a>
+	            <a th:href="@{/board/list}"><button id="w2" type="submit">게시글 등록하기</button></a>
 	        </div>
         </form>
       </section>
@@ -72,15 +72,80 @@
 	<div th:replace="~{footer::footer-fragment}"></div>
 </body>
 <script>
+    function validateEmpty(array) {
+        // 빈 값 체크
+        const emptyCheck = array.some((temp) => {
+            if(!temp.value || !temp.value.trim()) {
+                alert(temp.name + "을(를) 입력하세요.");
+                return true;
+            }
+            return false
+        })
+        return !emptyCheck
+    }
+
 	 $(document).ready(function() {
-		$("#category").change(function() {
-			if($("#category").val() == "리뷰") {
+		function pageChange(value) {
+			if(value == "review") {
 				$(".write-pic").css("display", "block");
 				$(".write-star").css("display", "block");
 			} else {
 				$(".write-pic").css("display", "none");
 				$(".write-star").css("display", "none");
 			}
+		}
+
+		$("#write-form").submit(function(e) {
+			e.preventDefault();
+
+			const boardType = $("#category").val();
+			const title = $("#title-input").val();
+			const content = $("#content-input").val();
+			let review;
+			let starImgs;
+			let starLength = 0;
+			const validateInfo = [
+                {
+                    name: "게시글 제목",
+                    value: title
+                },
+                {
+					name: "게시글 내용",
+                    value: content
+                },            
+            ]
+
+			const payload = {
+                boardType: title,
+				title: title,
+				content: content,
+            }
+
+			if(boardType === "review") {
+				review = $("board-photo").attr("src");
+				starImgs = $(".star-wrapper img");
+				// 선택한 별 갯수 구하기
+				Array.from(starImgs).forEach((img) => {
+					img.src.includes("star_selected") && starLength++;
+				});
+				payload.review = review;
+				payload.star = starLength;
+			}
+            
+            if (!validateEmpty(validateInfo)) {
+                return;
+            }
+			
+            this.submit();
+		})
+
+		$("#category").after(function() {
+			const value = $(this).val();
+			pageChange(value);
+		})
+		$("#category").change(function() {
+			const value = $(this).val();
+			pageChange(value);
 		})
 		$("#board-upload").change(function(e) {
             const photo = $("#board-photo");
@@ -107,6 +172,21 @@
     		const length = text.length;
 			$(".tr-300").text(`${length > 300 ? 300 : length}/300`);
         });
+		$(".star-wrapper").on("click", function(e) {
+			if (!e.target.matches("div > img")) return;
+			const pos = e.target.getAttribute("data-pos");
+			const imgs = this.querySelectorAll("img");
+			// 클릭 시 범위 내에 별 채우기
+			Array.from(imgs).forEach((img, index) => {
+				if(pos >= index + 1) {
+					// 별 채우기
+					img.src = "/images/job/star_selected.svg";
+				} else {
+					// 별 비우기
+					img.src = "/images/job/star.svg";
+				}
+			})
+		})
 	 });
 </script>
 </html>

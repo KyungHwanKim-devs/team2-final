@@ -46,7 +46,7 @@
                       <tbody>
                       <tr id="board_list" th:each="free : ${freeList}">
                           <td th:text="${free.id}"></td>
-                          <td><a th:href="@{/free/detail}" th:text="${free.title}"></a></td>
+                          <td><a th:href="@{/board/detail/}+${free.id}+@{?boardType=free}" th:text="${free.title}"></a></td>
                           <td th:text="${free.author}"></td>
                           <td th:text="${free.createdDate}"></td>
                           <td th:text="${free.views}"></td>
@@ -70,10 +70,16 @@
                     <i class="fas fa-search"></i> <!-- 돋보기 아이콘 -->
                 </button>
             </div>
-            <a th:href="@{/board/write(boardType='noti')}"><button id="write">글쓰기</button></a>
+            <a th:href="@{/board/write(boardType='free')}"><button id="write">글쓰기</button></a>
         </div>
     </div>
     
     <div th:replace="~{footer::footer-fragment}"></div>
 </body>
+<script>
+    function search() {
+        const value = document.getElementById("search-input").value;
+        window.location.href = `http://localhost:8080/board/free?keyword=${value}`
+    }
+</script>
 </html>
