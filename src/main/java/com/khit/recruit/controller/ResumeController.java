@@ -28,7 +28,10 @@ public class ResumeController {
 		@RequestParam(value="edu_detail_prev", required = false) String edu_detail_prev,
 		@RequestParam(value="edu_detail_next", required = false) String edu_detail_next,
 		@RequestParam(value="career", required = false) String career,
-		@RequestParam(value="etc", required = false) String etc,
+		@RequestParam(value="military", required = false) String military,
+		@RequestParam(value="license", required = false) String license,
+		@RequestParam(value="certificate", required = false) String certificate,
+		@RequestParam(value="language", required = false) String language,
 		@RequestParam(value="growth", required = false) String growth,
 		@RequestParam(value="specialty", required = false) String specialty,
 		@RequestParam(value="exp", required = false) String exp,
@@ -50,7 +53,10 @@ public class ResumeController {
 		model.addAttribute("edu_detail_prev", edu_detail_prev);  //상세학력 앞
 		model.addAttribute("edu_detail_next", edu_detail_next);  //상세학력 뒤
 		model.addAttribute("career", career);  //경력
-		model.addAttribute("etc", etc);  //기타사항
+		model.addAttribute("military", military);  //병력사항
+		model.addAttribute("license", license);  //면허증
+		model.addAttribute("certificate", certificate);  //자격증
+		model.addAttribute("language", language);  //어학능력
 		model.addAttribute("growth", growth);  //성장과정
 		model.addAttribute("specialty", specialty);  //장단점 및 특기
 		model.addAttribute("exp", exp);  //경험 및 경력
