@@ -15,7 +15,7 @@
 <body>
     <div th:replace="~{header::header-fragment}"></div>
     <h1 id="resume-heading">이력서 등록</h1>
-    <form id="resume-form">
+    <form id="resume-form" method="post">
         <main id="resume-container">
             <div class="resume-title">
                 <label for="resume-title">이력서 제목</label>
@@ -24,7 +24,7 @@
             <h2>개인 정보</h2>
             <section class="resume-info">
                 <div class="thumbnail">
-                    <img  alt="thumbnail-image" id="resume-photo">
+                    <img alt="thumbnail-image" id="resume-photo">
                     <label for="resume-upload" class="flex jc-center">
                       <span class="material-symbols-outlined">
                         add_a_photo
