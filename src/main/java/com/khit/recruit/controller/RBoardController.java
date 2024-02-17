@@ -10,8 +10,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+
 @Slf4j
 @RequestMapping("/rboard")
 @RequiredArgsConstructor
@@ -44,9 +48,31 @@ public class RBoardController {
 	public String boardDetailForm() {
 		return "rboard/detail";
 	}
+
 	@GetMapping("/write")
-	public String boardWriteForm() {
+	public String rBoardwriteForm(Model model) {
+		model.addAttribute("review", new Review());
 		return "rboard/write";
+	}
+	@PostMapping("/write")
+	public String rBoardWritePost(
+			Review review,
+			BindingResult bindingResult,
+			@RequestParam(name = "reviewFile", required = false) MultipartFile reviewFile) throws IllegalStateException, IOException {
+		log.info("review : " + review);
+
+		if (bindingResult.hasErrors()) {
+			log.info("has errors.....");
+			return "main";
+		}
+		try {
+			boardService.reviewSave(review, reviewFile);
+		} catch (Exception e) {
+			log.info("reviewSave error....." + e.getMessage());
+			return "main";
+		}
+
+		return "redirect:/rboard/list";
 	}
 
 }

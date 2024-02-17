@@ -3,6 +3,7 @@ package com.khit.recruit.controller;
 import com.khit.recruit.entity.Free;
 import com.khit.recruit.entity.Noti;
 import com.khit.recruit.entity.Qna;
+import com.khit.recruit.entity.Review;
 import com.khit.recruit.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,7 +14,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -92,8 +95,45 @@ public class BoardController {
 		return "board/detail";
 	}
 	@GetMapping("/write")
-	public String boardWriteForm() {
+	public String boardWriteForm(
+			Model model,
+			@RequestParam(name = "boardType") String boardType
+	) {
+		switch (boardType) {
+			case "free":
+				model.addAttribute("board", new Free());
+				break;
+			case "qna":
+				model.addAttribute("board", new Qna());
+				break;
+			case "noti":
+				model.addAttribute("board", new Noti());
+				break;
+		}
 		return "board/write";
+	}
+
+	@PostMapping("/write")
+	public String boardWritePost(
+			Noti noti,
+			Qna qna,
+			Free free,
+			BindingResult bindingResult
+	) {
+		log.info("noti : " + noti.toString());
+		log.info("qna : " + qna.toString());
+		log.info("Free : " + free.toString());
+		if (bindingResult.hasErrors()) {
+			log.info("has errors....." + bindingResult.toString());
+			return "board/write";
+		}
+		try {
+			boardService.notiSave(noti);
+		} catch (Exception e) {
+			log.info("notiSave error....." + e.getMessage());
+			return "board/write";
+		}
+		return "redirect:/board/noti";
 	}
 
 }

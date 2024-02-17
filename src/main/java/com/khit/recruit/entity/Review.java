@@ -26,8 +26,11 @@ public class Review extends BaseEntity{
 	private String content;
 
 	@Column
-	private String imageURL;
-	
+	private String filename;
+
+	@Column
+	private String filepath;
+
 	@Column(nullable = false)
 	private Integer likes;
 	

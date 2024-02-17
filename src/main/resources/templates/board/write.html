@@ -16,7 +16,10 @@
     <div id="container">
       <section class="board-write">
         <h2>글쓰기</h2>
-        <form th:action="@{/board/write}" method="post">
+        <form th:action="@{/board/write}"
+			  method="post"
+			  th:object="${board}"
+		>
         	<div class="write-category">
 	            <h2>1. 작성할 게시판을 선택해주세요.</h2>
 	            <select id="category">
@@ -28,12 +31,22 @@
 	        </div>
 	        <div class="write-title">
 	            <h2>2. 게시글 제목을 입력해주세요. (최대 40자)</h2>
-	            <input type="text" id="title-input">
+	            <input type="text"
+					   id="title-input"
+					   th:field="*{title}">
 	        </div>
 	        <div class="write-content">
 	            <h2>3. 게시글 내용을 입력해주세요. (최대 300자)</h2>
-	            <input type="text" id="content-input">
+	            <input type="text"
+					   id="content-input"
+					   th:field="*{content}">
 	        </div>
+			<div class="write-content">
+				<h2>3. 작성자</h2>
+				<input type="text"
+					   id="author-input"
+					   th:field="*{author}">
+			</div>
 	        <div>
 	            <a th:href="@{/board/list}"><button id="w1">취소</button></a>
 	            <a th:href="@{/board/list}"><button id="w2">게시글 등록하기</button></a>

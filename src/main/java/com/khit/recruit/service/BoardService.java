@@ -125,6 +125,31 @@ public class BoardService {
 		return reviewList;
 	}
 
+	public void reviewSave(Review review, MultipartFile reviewFile) throws IllegalStateException, IOException {
+		if (reviewFile != null && !reviewFile.isEmpty()) {
+			UUID uuid = UUID.randomUUID();  //무작위 아이디 생성(중복파일의 이름을 생성해줌)
+			String filename = uuid + "_" + reviewFile.getOriginalFilename();  //원본 파일
+			String filepath = "C:/springfiles/" + filename;
+
+			File savedFile = new File(filepath); //실제 파일
+			reviewFile.transferTo(savedFile);
+
+			//2. 파일 이름은 db에 저장
+			review.setFilename(filename);
+			review.setFilepath(filepath);
+
+		}
+
+		review.setLikes(0);
+		review.setViews(0);
+
+		reviewRepository.save(review);
+	}
+
+	public void notiSave(Noti noti) {
+		notiRepository.save(noti);
+	}
+
 //	public Page<Board> findListAllByType(String type, Pageable pageable) {
 //		int page = pageable.getPageNumber() - 1; //db는 현재페이지보다 1 작아야함
 //		int pageSize = 10;

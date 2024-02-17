@@ -32,7 +32,6 @@ public class Noti extends BaseEntity{
 	@Column(nullable = false)
 	private Integer views;
 
-	@Column(nullable = false)
-	private String type;
+
 	
 }
