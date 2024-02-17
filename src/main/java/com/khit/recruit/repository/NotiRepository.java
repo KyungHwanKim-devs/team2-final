@@ -16,6 +16,6 @@ public interface NotiRepository extends JpaRepository<Noti, Long>{
 //
 //	Optional<Job> findByJid(Long jid);
 
-//	Page<Noti> findAllByType(String type, Pageable pageable);
-
+    //	Page<Noti> findAllByType(String type, Pageable pageable);
+    Page<Noti> findByTitleContaining(String keyword, Pageable pageable);
 }

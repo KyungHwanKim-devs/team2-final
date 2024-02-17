@@ -17,6 +17,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.text.html.parser.Entity;
+
 @Slf4j
 @RequiredArgsConstructor
 @RequestMapping("/board")
@@ -28,12 +30,15 @@ public class BoardController {
 
     @GetMapping("/noti")
 	public String boardListForm(
+			@RequestParam(name = "keyword", required = false) String keyword,
 			@PageableDefault(page = 1) Pageable pageable,
 			Model model) {
-
-		Page<Noti> 	notiList = boardService.findNotiListAll(pageable);
-
-		log.info("notiList : " + notiList );
+		Page<Noti> notiList = null;
+		if (keyword != null) {
+			notiList = boardService.findNotiListByKeyword(keyword, pageable);
+		} else {
+			notiList = boardService.findNotiListAll(pageable);
+		}
 
 		int blockLimit = 10;
 		int startPage = ((int)(Math.ceil((double)pageable.getPageNumber()/blockLimit))-1)*blockLimit+1;
@@ -48,18 +53,24 @@ public class BoardController {
 	}
 	@GetMapping("/qna")
 	public String boardQnaForm(
+			@RequestParam(name = "keyword", required = false) String keyword,
 			@PageableDefault(page = 1) Pageable pageable,
-							   Model model) {
+			Model model) {
 
-		Page<Qna> qnaList = boardService.findQnaListAll(pageable);
-
-		log.info("qnaList : " + qnaList );
+		Page<Qna> qnaList = null;
+		if (keyword != null) {
+			qnaList = boardService.findQnaListByKeyword(keyword, pageable);
+		} else {
+			qnaList = boardService.findQnaListAll(pageable);
+		}
 
 		int blockLimit = 10;
 		int startPage = ((int)(Math.ceil((double)pageable.getPageNumber()/blockLimit))-1)*blockLimit+1;
 		int endPage = (startPage+blockLimit-1) > qnaList.getTotalPages() ?
 				qnaList.getTotalPages() : startPage+blockLimit-1;
 		endPage = Math.max(endPage, startPage);
+
+		log.info("qnaList : " + qnaList );
 
 		model.addAttribute("qnaList", qnaList);
 		model.addAttribute("startPage", startPage);
@@ -69,18 +80,24 @@ public class BoardController {
 
 	@GetMapping("/free")
 	public String boardFreeForm(
+			@RequestParam(name = "keyword", required = false) String keyword,
 			@PageableDefault(page = 1) Pageable pageable,
 			Model model
 	) {
-		Page<Free> freeList = boardService.findFreeListAll(pageable);
-
-		log.info("freeList : " + freeList );
+		Page<Free> freeList = null;
+		if (keyword != null) {
+			freeList = boardService.findFreeListByKeyword(keyword, pageable);
+		} else {
+			freeList = boardService.findFreeListAll(pageable);
+		}
 
 		int blockLimit = 10;
 		int startPage = ((int)(Math.ceil((double)pageable.getPageNumber()/blockLimit))-1)*blockLimit+1;
 		int endPage = (startPage+blockLimit-1) > freeList.getTotalPages() ?
 				freeList.getTotalPages() : startPage+blockLimit-1;
 		endPage = Math.max(endPage, startPage);
+
+		log.info("freeList : " + freeList );
 
 		model.addAttribute("freeList", freeList);
 		model.addAttribute("startPage", startPage);

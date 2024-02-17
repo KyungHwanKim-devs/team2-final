@@ -1,5 +1,6 @@
 package com.khit.recruit.controller;
 
+import com.khit.recruit.entity.Free;
 import com.khit.recruit.entity.Noti;
 import com.khit.recruit.entity.Review;
 import com.khit.recruit.service.BoardService;
@@ -26,18 +27,24 @@ public class RBoardController {
 	
 	@GetMapping("/list")
 	public String boardListForm(
+			@RequestParam(name = "keyword", required = false) String keyword,
 			@PageableDefault(page = 1) Pageable pageable,
 			Model model
 	) {
-		Page<Review> reviewList = boardService.findReviewListAll(pageable);
-
-		log.info("reviewList : " + reviewList );
+		Page<Review> reviewList = null;
+		if (keyword != null) {
+			reviewList = boardService.findReviewListByKeyword(keyword, pageable);
+		} else {
+			reviewList = boardService.findReviewListAll(pageable);
+		}
 
 		int blockLimit = 10;
 		int startPage = ((int)(Math.ceil((double)pageable.getPageNumber()/blockLimit))-1)*blockLimit+1;
 		int endPage = (startPage+blockLimit-1) > reviewList.getTotalPages() ?
 				reviewList.getTotalPages() : startPage+blockLimit-1;
 		endPage = Math.max(endPage, startPage);
+
+		log.info("reviewList : " + reviewList );
 
 		model.addAttribute("reviewList", reviewList);
 		model.addAttribute("startPage", startPage);

@@ -1,7 +1,10 @@
 package com.khit.recruit.repository;
 
+import com.khit.recruit.entity.Noti;
 import com.khit.recruit.entity.Qna;
 import com.khit.recruit.entity.Review;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ReviewRepository extends JpaRepository<Review, Long>{
@@ -16,5 +19,7 @@ public interface ReviewRepository extends JpaRepository<Review, Long>{
 //	Optional<Job> findByJid(Long jid);
 
 //	Page<Noti> findAllByType(String type, Pageable pageable);
+Page<Review> findByTitleContaining(String keyword, Pageable pageable);
+
 
 }
