@@ -49,6 +49,7 @@ public class BoardController {
 		model.addAttribute("notiList", notiList);
 		model.addAttribute("startPage", startPage);
 		model.addAttribute("endPage", endPage);
+		model.addAttribute("keyword", keyword);
 		return "board/noti";
 	}
 	@GetMapping("/qna")
@@ -75,6 +76,7 @@ public class BoardController {
 		model.addAttribute("qnaList", qnaList);
 		model.addAttribute("startPage", startPage);
 		model.addAttribute("endPage", endPage);
+		model.addAttribute("keyword", keyword);
 		return "board/qna";
 	}
 
@@ -102,6 +104,7 @@ public class BoardController {
 		model.addAttribute("freeList", freeList);
 		model.addAttribute("startPage", startPage);
 		model.addAttribute("endPage", endPage);
+		model.addAttribute("keyword", keyword);
 		return "board/free";
 	}
 //	@GetMapping("/detail/{id}")

@@ -49,6 +49,7 @@ public class RBoardController {
 		model.addAttribute("reviewList", reviewList);
 		model.addAttribute("startPage", startPage);
 		model.addAttribute("endPage", endPage);
+		model.addAttribute("keyword", keyword);
 		return "rboard/list";
 	}
 	@GetMapping("/detail")
