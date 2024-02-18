@@ -112,7 +112,32 @@ public class BoardController {
 		model.addAttribute("keyword", keyword);
 		return "board/free";
 	}
-//	@GetMapping("/detail/{id}")
+
+	@PostMapping("/write/{id}")
+	public String boardDetailForm(
+			Comment comment,
+			@PathVariable Long id,
+			@RequestParam(name = "boardType") String boardType
+	) {
+		System.out.println("model : " + comment);
+		System.out.println("boardType : " + boardType);
+		System.out.println("id : " + id);
+//		switch (boardType) {
+//			case "free" -> {
+//				Free free = boardService.sa(id);
+//				model.addAttribute("board", free);
+//			}
+//			case "qna" -> {
+//				Qna qna = boardService.findQnaById(id);
+//				model.addAttribute("board", qna);
+//			}
+//			case "noti" -> {
+//				Noti noti = boardService.findNotiById(id);
+//				model.addAttribute("board", noti);
+//			}
+//		}
+		return "redirect:/resume/main";
+	}
 	@GetMapping("/detail/{id}")
 	public String boardDetailForm(
 			@PageableDefault(page = 1) Pageable pageable,
@@ -126,24 +151,28 @@ public class BoardController {
                 Free free = boardService.findFreeById(id);
 				Page<Comment> commentList = commentService.findFreeComments(id, pageable);
 				model.addAttribute("commentList", commentList);
+				model.addAttribute("comment", new Comment());
                 model.addAttribute("board", free);
             }
             case "qna" -> {
                 Qna qna = boardService.findQnaById(id);
 				Page<Comment> commentList = commentService.findQnaComments(id, pageable);
 				model.addAttribute("commentList", commentList);
+				model.addAttribute("comment", new Comment());
                 model.addAttribute("board", qna);
             }
             case "noti" -> {
                 Noti noti = boardService.findNotiById(id);
 				Page<Comment> commentList = commentService.findNotiComments(id, pageable);
 				model.addAttribute("commentList", commentList);
+				model.addAttribute("comment", new Comment());
                 model.addAttribute("board", noti);
             }
             case "review" -> {
                 Review review = boardService.findReviewById(id);
 				Page<Comment> commentList = commentService.findReviewComments(id, pageable);
 				model.addAttribute("commentList", commentList);
+				model.addAttribute("comment", new Comment());
                 model.addAttribute("board", review);
             }
         }
