@@ -192,30 +192,62 @@ public class BoardController {
 			case "noti":
 				model.addAttribute("board", new Noti());
 				break;
+			case "review":
+				model.addAttribute("board", new Review());
+				break;
 		}
 		return "board/write";
 	}
 
 	@PostMapping("/write")
 	public String boardWritePost(
-			Noti noti,
-			Qna qna,
 			Free free,
-			BindingResult bindingResult
+			@RequestParam(name = "boardType") String boardType
 	) {
-		log.info("noti : " + noti.toString());
-		log.info("qna : " + qna.toString());
-		log.info("Free : " + free.toString());
-		if (bindingResult.hasErrors()) {
-			log.info("has errors....." + bindingResult.toString());
-			return "board/write";
-		}
-		try {
-			boardService.notiSave(noti);
-		} catch (Exception e) {
-			log.info("notiSave error....." + e.getMessage());
-			return "board/write";
-		}
+        switch (boardType) {
+            case "free" -> {
+                try {
+                    boardService.freeSave(free);
+                } catch (Exception e) {
+                    log.info("freeSave error....." + e.getMessage());
+                    return "board/write";
+                }
+            }
+            case "qna" -> {
+                try {
+                    boardService.qnaSave(Qna.builder()
+                            .title(free.getTitle())
+                            .content(free.getContent())
+                            .build());
+                } catch (Exception e) {
+                    log.info("qnaSave error....." + e.getMessage());
+                    return "board/write";
+                }
+            }
+            case "noti" -> {
+                try {
+                    boardService.notiSave(Noti.builder()
+                            .title(free.getTitle())
+                            .content(free.getContent())
+                            .build());
+                } catch (Exception e) {
+                    log.info("notiSave error....." + e.getMessage());
+                    return "board/write";
+                }
+            }
+			case "review" -> {
+				try {
+					boardService.reviewSave(Review.builder()
+							.title(free.getTitle())
+							.content(free.getContent())
+							.build());
+				} catch (Exception e) {
+					log.info("reviewSave error....." + e.getMessage());
+					return "board/write";
+				}
+			}
+        }
+
 		return "redirect:/board/noti";
 	}
 
