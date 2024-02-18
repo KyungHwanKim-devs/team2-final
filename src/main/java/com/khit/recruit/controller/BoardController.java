@@ -201,13 +201,16 @@ public class BoardController {
 
 	@PostMapping("/write")
 	public String boardWritePost(
-			Free free,
+			Review review,
 			@RequestParam(name = "boardType") String boardType
 	) {
         switch (boardType) {
             case "free" -> {
                 try {
-                    boardService.freeSave(free);
+                    boardService.freeSave(Free.builder()
+							.title(review.getTitle())
+							.content(review.getContent())
+							.build());
                 } catch (Exception e) {
                     log.info("freeSave error....." + e.getMessage());
                     return "board/write";
@@ -216,8 +219,8 @@ public class BoardController {
             case "qna" -> {
                 try {
                     boardService.qnaSave(Qna.builder()
-                            .title(free.getTitle())
-                            .content(free.getContent())
+                            .title(review.getTitle())
+                            .content(review.getContent())
                             .build());
                 } catch (Exception e) {
                     log.info("qnaSave error....." + e.getMessage());
@@ -227,8 +230,8 @@ public class BoardController {
             case "noti" -> {
                 try {
                     boardService.notiSave(Noti.builder()
-                            .title(free.getTitle())
-                            .content(free.getContent())
+                            .title(review.getTitle())
+                            .content(review.getContent())
                             .build());
                 } catch (Exception e) {
                     log.info("notiSave error....." + e.getMessage());
@@ -237,10 +240,7 @@ public class BoardController {
             }
 			case "review" -> {
 				try {
-					boardService.reviewSave(Review.builder()
-							.title(free.getTitle())
-							.content(free.getContent())
-							.build());
+					boardService.reviewSave(review);
 				} catch (Exception e) {
 					log.info("reviewSave error....." + e.getMessage());
 					return "board/write";
