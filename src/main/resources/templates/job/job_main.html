@@ -88,7 +88,7 @@
 				<!-- 공고글 -->
 				<div id="job_list" th:each="job : ${jobList}">
 					<div>
-						<p th:text="${job.company.cname}"></p>
+						<p th:text="${cname}"></p>
 					</div>
 					<div>
 						 <p><a th:href="@{|/job/${job.jid}|(page=${jobList.number+1})}" th:text="${job.title}"></a><p>

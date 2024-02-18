@@ -54,6 +54,7 @@ public class BoardController {
 		model.addAttribute("notiList", notiList);
 		model.addAttribute("startPage", startPage);
 		model.addAttribute("endPage", endPage);
+		model.addAttribute("keyword", keyword);
 		return "board/noti";
 	}
 	@GetMapping("/qna")
@@ -80,6 +81,7 @@ public class BoardController {
 		model.addAttribute("qnaList", qnaList);
 		model.addAttribute("startPage", startPage);
 		model.addAttribute("endPage", endPage);
+		model.addAttribute("keyword", keyword);
 		return "board/qna";
 	}
 
@@ -107,6 +109,7 @@ public class BoardController {
 		model.addAttribute("freeList", freeList);
 		model.addAttribute("startPage", startPage);
 		model.addAttribute("endPage", endPage);
+		model.addAttribute("keyword", keyword);
 		return "board/free";
 	}
 //	@GetMapping("/detail/{id}")
@@ -117,6 +120,7 @@ public class BoardController {
 			@PathVariable Long id,
 			Model model
 	) {
+		model.addAttribute("boardType", boardType);
         switch (boardType) {
             case "free" -> {
                 Free free = boardService.findFreeById(id);
@@ -150,6 +154,7 @@ public class BoardController {
 			Model model,
 			@RequestParam(name = "boardType") String boardType
 	) {
+		model.addAttribute("boardType", boardType);
 		switch (boardType) {
 			case "free":
 				model.addAttribute("board", new Free());

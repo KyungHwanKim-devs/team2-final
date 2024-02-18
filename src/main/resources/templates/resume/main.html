@@ -195,6 +195,7 @@
         return regex.test(phone);
     
     }
+
     function validateEmpty(array) {
         // 빈 값 체크
         const emptyCheck = array.some((temp) => {
@@ -206,6 +207,7 @@
         })
         return !emptyCheck
     }
+    
     function validateDate(year, month, day) {
         // 빈 값 체크
         if (!year || !month || !day) {
@@ -227,8 +229,8 @@
         return true;
     }
     $(document).ready(function() {
-        $("#resume-form").submit(function(data) {
-            data.preventDefault();
+        $("#resume-form").submit(function(e) {
+            e.preventDefault();
             // 이력서 제목
             const title = $("#resume-title").val();
             // 게인정보

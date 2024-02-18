@@ -6,7 +6,7 @@
 <link rel="stylesheet" th:href="@{/css/footer.css}">
 <link rel="stylesheet" th:href="@{/css/header.css}">
 <script src="https://kit.fontawesome.com/630c352365.js" crossorigin="anonymous"></script>
-
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <link rel="stylesheet" th:href="@{/css/board.css}">
 </head>
 <body>
@@ -46,7 +46,7 @@
                     <tbody>
                         <tr id="board_list" th:each="noti : ${notiList}">
                             <td th:text="${noti.id}"></td>
-                            <td><a th:href="@{/board/detail}" th:text="${noti.title}"></a></td>
+                            <td><a th:href="@{/board/detail/}+${noti.id}+@{?boardType=noti}" th:text="${noti.title}"></a></td>
                             <td th:text="${noti.author}"></td>
                             <td th:text="${noti.createdDate}"></td>
                             <td th:text="${noti.views}"></td>
@@ -65,7 +65,7 @@
                     <option value="제목">제목</option>
                     <option value="작성자">작성자</option>
                 </select>
-                <input type="text" id="search-input" size="10%">
+                <input type="text" id="search-input" size="10%" th:value="${keyword}" >
                 <button id="search-button">
                     <i class="fas fa-search"></i> <!-- 돋보기 아이콘 -->
                 </button>
@@ -74,6 +74,24 @@
         </div>
     </div>
     
+    
     <div th:replace="~{footer::footer-fragment}"></div>
 </body>
+<script>
+    function search() {
+        const value = document.getElementById("search-input").value;
+        window.location.href = `http://localhost:8080/board/noti?keyword=${value}`
+    }
+
+    $(document).ready(function(){
+        $("#search-button").click(function(){
+            search()
+        });
+        $("#search-input").keydown(function(e){
+            if (e.keyCode === 13) {
+                search();
+            }
+        });
+    })
+</script>
 </html>
