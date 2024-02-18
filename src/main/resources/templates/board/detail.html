@@ -64,7 +64,7 @@
                         <button type="submit" id="reply-write">댓글</button>
                     </form>
                     
-                    <div class="reply-title">댓글 <span>6</span></div>
+                    <div class="reply-title">댓글 <span th:text="${#lists.size(commentList)}"></span></div>
 
                     <!-- 댓글목록 -->
                     <div class="reply-container">
@@ -130,6 +130,8 @@
 
         $("#comment-form").submit(function(e) {
             e.preventDefault();
+            const formData = new FormData(this);
+
             const comment = $("#reply-input").val();
             const validateInfo = [
                 {
@@ -143,7 +145,12 @@
             if (!validateEmpty(validateInfo)) {
                 return;
             }
-            this.submit();
+
+            fetch(this.action, {
+                method: this.method.toUpperCase(),
+                body: JSON.stringify(payload),
+            });
+
         });
     })
 </script>
