@@ -207,7 +207,7 @@
         })
         return !emptyCheck
     }
-    
+
     function validateDate(year, month, day) {
         // 빈 값 체크
         if (!year || !month || !day) {
@@ -379,7 +379,7 @@
                 
             }
             this.submit();
-      
+            
         });
         $(".postcode-btn").click(function() {
             // 우편 주소
@@ -388,9 +388,8 @@
                 const zc = $("#resume-info-address-prev");
                 const address = $("#resume-info-address-next");
                 if(!zc || !address) return;
-                zc.val(data.zoneCode);
+                zc.val(data.zonecode);
                 address.val(data.address);
-                $("#search").submit();
             }
         }).open();
         });

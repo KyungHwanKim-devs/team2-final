@@ -46,7 +46,7 @@ public class ResumeController {
 			return "resume/main";
 		}
 
-		return "redirect:/resume/main";
+		return "redirect:/main";
 	}
 
 }
