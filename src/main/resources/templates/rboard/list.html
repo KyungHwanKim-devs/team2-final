@@ -45,9 +45,9 @@
                             <div class="profile">
                                 <span class="p1" th:text="${review.author}"></span>
                                 <span class="p2" th:text="${#dates.format(review.createdDate, 'yyyy.MM.dd')}"></span>
-                                <span class="sp1" th:text="${review.likes}"><i class="fa-regular fa-eye"></i></span>
-                                <span class="sp2" th:text="${review.rating}"><i class="fa-regular fa-heart"></i> 1 </span>
-                                <span class="sp3" th:text="${review.views}"><i class="fa-regular fa-comment"></i> 1 </span>
+                                <span class="sp1"><i class="fa-regular fa-eye"></i> <span th:text="${review.likes}"></span></span>
+                                <span class="sp2"><i class="fa-regular fa-heart"></i> <span th:text="${review.rating}"></span></span>
+                                <span class="sp3"><i class="fa-regular fa-comment"></i> <span th:text="${review.views}"></span></span>
                             </div>
                             <div class="review_img">
                                 <img th:src="${review.filepath}" width="120" height="120">

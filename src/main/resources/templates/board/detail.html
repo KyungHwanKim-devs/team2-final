@@ -39,11 +39,12 @@
                             <span class="sp5"><i class="fa-regular fa-heart"></i> <span th:text="${board.likes}"></span></span>
                             <span class="sp6"><i class="fa-regular fa-comment"></i> <span id="comment-count"></span> </span>
                             <div class="star-container">
-                                <i class="fa-solid fa-star"></i> 
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-regular fa-star"></i>
-                                <i class="fa-regular fa-star"></i>
-                                <i class="fa-regular fa-star"></i>
+                                <input type="text" id="rating" th:if="${boardType == 'review'}" th:value="${board.rating}" hidden>
+                                <i></i> 
+                                <i></i>
+                                <i></i>
+                                <i></i>
+                                <i></i>
                             </div>
                         </div>
                     </div>
@@ -93,7 +94,7 @@
                     </div>
                 
                     <div class="backspace">
-                       <a name="boardType" th:href="@{/board/}+${boardType}"><button type="button" id="write2">목록</button></a>
+                       <span name="boardType"><button type="button" id="write2">목록</button></span>
                     </div>
                 </div>
                 </div>
@@ -119,6 +120,16 @@
 			if(value == "review") {
 				$(".detail-img").css("display", "block");
 				$(".star-container").css("display", "inline-block");
+             
+                const rating = $("#rating").val();
+                $(".star-container i").each((index, element) => {
+                    if (index < rating) {
+                        element.className = "fa-solid fa-star";
+                    } else {
+                        element.className = "fa-regular fa-star";
+                    }
+                })
+              
 			} else {
 				$(".detail-img").css("display", "none");
 				$(".star-container").css("display", "none");
@@ -128,7 +139,12 @@
         const boardType = url.searchParams.get("boardType");
         $("#comment-count").text($(".reply-list").length);
         $("#comment-length").text($(".reply-list").length);
+   
         pageChange(boardType);
+
+        $(".backspace").on("click", function(e) {
+            history.back();
+        });
 
         $("#comment-form").submit(function(e) {
             e.preventDefault();

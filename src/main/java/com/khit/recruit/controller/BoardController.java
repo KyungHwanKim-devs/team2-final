@@ -247,8 +247,8 @@ public class BoardController {
 				}
 			}
         }
-
-		return "redirect:/board/noti";
+		
+		return boardType.equals("review") ? "redirect:/rboard/list" : "redirect:/board/" + boardType;
 	}
 
 }

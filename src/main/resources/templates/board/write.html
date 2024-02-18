@@ -47,7 +47,7 @@
 						  maxlength="300"></textarea>
 				<p class="text-range tr-300">0/300</p>
 	        </div>
-			<div class="write-pic">
+			<div class="write-pic" th:if="${boardType == 'review'}">
             	<h2>4. 리뷰 사진을 등록하세요. (선택)</h2>
             	<p>jpg, png 파일만 가능합니다.</p>
 	            <div class="thumbnail">
@@ -64,10 +64,12 @@
 					>
 	            </div>
        		</div>
-			<div class="write-star">
+
+			<div class="write-star" th:if="${boardType == 'review'}" >
             	<h2>5. 별점을 선택해주세요.(5점 만점)</h2>
+				<input type="number" id="rating" th:field="*{rating}" hidden >
 	            <div class="star-wrapper">
-	                <img data-pos="1" th:src="@{/images/job/star_selected.svg}" alt="star">
+	        		<img data-pos="1" th:src="@{/images/job/star.svg}" alt="star">
 					<img data-pos="2" th:src="@{/images/job/star.svg}" alt="star">
 					<img data-pos="3" th:src="@{/images/job/star.svg}" alt="star">
 					<img data-pos="4" th:src="@{/images/job/star.svg}" alt="star">
@@ -142,6 +144,8 @@
 				});
 				payload.review = review;
 				payload.star = starLength;
+				$("#rating").val(starLength);
+
 			}
             
             if (!validateEmpty(validateInfo)) {
@@ -202,6 +206,7 @@
 					img.src = "/images/job/star.svg";
 				}
 			})
+			$("#rating").val(pos);
 		})
 	 });
 </script>
