@@ -18,7 +18,7 @@
 	<div th:replace="~{header::header-fragment}"></div>
     <div id="container">
       <section class="board-write">
-        <form th:action="@{/board/write}" method="post" id="write-form"  >
+        <form th:action="@{/board/write}" method="post" id="write-form" th:object="${board}"  >
         	<div class="write-category">
 	            <h2>1. 작성할 게시판을 선택해주세요.</h2>
 	            <select id="category">

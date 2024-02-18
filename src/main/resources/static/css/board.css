@@ -382,6 +382,10 @@ table {
   margin-left: 20px;
 }
 
+#comment-form {
+  width: 100%;
+}
+
 .reply{
   margin-top: 100px;
   width: 100%;
@@ -392,10 +396,14 @@ table {
 }
 
 .reply-btns {
-  & > button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  & button {
     border: none;
     background: unset;
     font-size: 16px;
+    cursor: pointer;
     &.update {
       color: #0084F3;
     }
