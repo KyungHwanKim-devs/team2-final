@@ -14,11 +14,13 @@
     <div id="container">
             <section class="detail">
                 <div id="detail-board">
+                    <!-- 게시판 정보 -->       
                     <div class="detail-list">
                         <div class="detail-title">
                             <p th:text="${board.title}"></p>
                         </div>
                         <div class="detail-profile">
+                            <!-- 리뷰일 경우 이미지 display: none -->       
                             <img th:src="@{/images/board/avatar.png}" class="profile_img">
                             <div class="profile1">
                                 <p class="pp1" th:text="${board.author}"></p>
@@ -31,10 +33,11 @@
                         <div class="detail-content">
                             <p th:text="${board.content}"></p>
                         </div>
+                        <!-- 조회 & 좋아요 & 댓글 수, 리뷰일경우 평점 -->       
                         <div>
                             <span class="sp4"><i class="fa-regular fa-eye"></i> <span th:text="${board.views}"></span></span>
                             <span class="sp5"><i class="fa-regular fa-heart"></i> <span th:text="${board.likes}"></span></span>
-                            <span class="sp6"><i class="fa-regular fa-comment"></i> <span th:text="${#lists.size(commentList)}"></span> </span>
+                            <span class="sp6"><i class="fa-regular fa-comment"></i> <span id="comment-count"></span> </span>
                             <div class="star-container">
                                 <i class="fa-solid fa-star"></i> 
                                 <i class="fa-solid fa-star"></i>
@@ -45,8 +48,7 @@
                         </div>
                     </div>
 
-                    <!-- 댓글입력 -->
-                    
+                    <!-- 댓글입력 -->         
                     <form class="reply"
                           method="post"
                           id="comment-form"
@@ -64,7 +66,7 @@
                         <button type="submit" id="reply-write">댓글</button>
                     </form>
                     
-                    <div class="reply-title">댓글 <span th:text="${#lists.size(commentList)}"></span></div>
+                    <div class="reply-title">댓글 <span id="comment-length"></span></div>
 
                     <!-- 댓글목록 -->
                     <div class="reply-container">
@@ -77,7 +79,7 @@
                                 <p th:text="${comment.content}">
                                 </p>
                                 <div class="flex-between">
-                                    <p class="pp3" th:text="${comment.createdDate}">2024.02.01 </p>
+                                    <p class="pp3" th:text="${#dates.format(comment.createdDate, 'yyyy.MM.dd')}"></p>
                                     <div class="reply-btns">
                                         <form id="commnet-update-form">
                                             <button type="submit" class="update">수정</button>
@@ -124,9 +126,9 @@
 		}
         const url = new URL(window.location.href);
         const boardType = url.searchParams.get("boardType");
-
+        $("#comment-count").text($(".reply-list").length);
+        $("#comment-length").text($(".reply-list").length);
         pageChange(boardType);
-
 
         $("#comment-form").submit(function(e) {
             e.preventDefault();
@@ -146,10 +148,7 @@
                 return;
             }
 
-            fetch(this.action, {
-                method: this.method.toUpperCase(),
-                body: JSON.stringify(payload),
-            });
+            this.submit();
 
         });
     })
