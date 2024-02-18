@@ -13,6 +13,7 @@ import lombok.*;
 public class Qna extends BaseEntity{
 	
 	@Id
+	@Column(name = "qna_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	

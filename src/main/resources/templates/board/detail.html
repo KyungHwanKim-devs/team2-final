@@ -47,44 +47,15 @@
                     <div class="reply-title"><h3>댓글 6</h3></div>
 
                     <!-- 댓글목록 -->
-                    <div class="reply-list">
+                    <div class="reply-list"
+                         th:each="comment: ${commentList}">
                         <div class="reply-profile">
                             <img th:src="@{/images/board/avatar.png}" class="profile_img">
-                            <span class="p3">jihun</span>
+                            <span class="p3" th:text="${comment.author}"></span>
                         </div>
                         <div class="reply-content">
-                            <p>내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다</p>
-                            <span class="pp3">2024.02.01 </span>
-                        </div>
-                    </div>
-                    <div class="reply-list">
-                        <div class="reply-profile">
-                            <img th:src="@{/images/board/avatar.png}" class="profile_img">
-                            <span class="p3">jihun</span>
-                        </div>
-                        <div class="reply-content">
-                            <p>내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다</p>
-                            <span class="pp3">2024.02.01 </span>
-                        </div>
-                    </div>
-                    <div class="reply-list">
-                        <div class="reply-profile">
-                            <img th:src="@{/images/board/avatar.png}" class="profile_img">
-                            <span class="p3">jihun</span>
-                        </div>
-                        <div class="reply-content">
-                            <p>내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다</p>
-                            <span class="pp3">2024.02.01 </span>
-                        </div>
-                    </div>
-                    <div class="reply-list">
-                        <div class="reply-profile">
-                            <img th:src="@{/images/board/avatar.png}" class="profile_img">
-                            <span class="p3">jihun</span>
-                        </div>
-                        <div class="reply-content">
-                            <p>내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다</p>
-                            <span class="pp3">2024.02.01 </span>
+                            <p th:text="${comment.content}">내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다</p>
+                            <span class="pp3" th:text="${comment.createdDate}">2024.02.01 </span>
                         </div>
                     </div>
                     <div>

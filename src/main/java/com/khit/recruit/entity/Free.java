@@ -14,6 +14,7 @@ public class Free extends BaseEntity{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "free_id")
 	private Long id;
 	
 	@Column(nullable = false)

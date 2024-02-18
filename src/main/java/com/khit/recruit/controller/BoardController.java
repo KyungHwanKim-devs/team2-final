@@ -4,7 +4,9 @@ import com.khit.recruit.entity.Free;
 import com.khit.recruit.entity.Noti;
 import com.khit.recruit.entity.Qna;
 import com.khit.recruit.entity.Review;
+import com.khit.recruit.entity.Comment;
 import com.khit.recruit.service.BoardService;
+import com.khit.recruit.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -27,6 +29,8 @@ public class BoardController {
 
 	private final BoardService boardService;
 
+	private final CommentService commentService;
+
 
     @GetMapping("/noti")
 	public String boardListForm(
@@ -39,6 +43,7 @@ public class BoardController {
 		} else {
 			notiList = boardService.findNotiListAll(pageable);
 		}
+
 
 		int blockLimit = 10;
 		int startPage = ((int)(Math.ceil((double)pageable.getPageNumber()/blockLimit))-1)*blockLimit+1;
@@ -115,18 +120,26 @@ public class BoardController {
         switch (boardType) {
             case "free" -> {
                 Free free = boardService.findFreeById(id);
+				Page<Comment> commentList = commentService.findFreeComments(id, pageable);
+				model.addAttribute("commentList", commentList);
                 model.addAttribute("board", free);
             }
             case "qna" -> {
                 Qna qna = boardService.findQnaById(id);
+				Page<Comment> commentList = commentService.findQnaComments(id, pageable);
+				model.addAttribute("commentList", commentList);
                 model.addAttribute("board", qna);
             }
             case "noti" -> {
                 Noti noti = boardService.findNotiById(id);
+				Page<Comment> commentList = commentService.findNotiComments(id, pageable);
+				model.addAttribute("commentList", commentList);
                 model.addAttribute("board", noti);
             }
             case "review" -> {
                 Review review = boardService.findReviewById(id);
+				Page<Comment> commentList = commentService.findReviewComments(id, pageable);
+				model.addAttribute("commentList", commentList);
                 model.addAttribute("board", review);
             }
         }
