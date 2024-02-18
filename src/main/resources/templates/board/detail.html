@@ -12,94 +12,92 @@
 <body>
     <div th:replace="~{header::header-fragment}"></div>
     <div id="container">
-    <section class="detail">
-        <div id="detail-board">
-            <div class="detail-list">
-                <div class="detail-title">
-                    <p>제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다</p>
-                </div>
-                <div class="detail-profile">
-                    <img th:src="@{/images/board/avatar.png}" class="profile_img">
-                    <div class="profile1">
-                        <p class="pp1">jihun</p>
-                        <p class="pp2">2024.02.01 </p>
-                    </div>
-                </div>
-                <div class="detail_img">
-                    <img th:src="@{/images/board/bg_default.png}" class="detail-img">
-                </div>
-                <div class="detail-content">
-                    <p>내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다</p>
-                </div>
-                <div>
-                    <span class="sp4"><i class="fa-regular fa-eye"></i> 1 </span>
-                    <span class="sp5"><i class="fa-regular fa-heart"></i> 1 </span>
-                    <span class="sp6"><i class="fa-regular fa-comment"></i> 1 </span>
-                    <div class="star-container">
-                        <i class="fa-solid fa-star"></i> 
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-regular fa-star"></i>
-                        <i class="fa-regular fa-star"></i>
-                        <i class="fa-regular fa-star"></i>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 댓글입력 -->
-            <div class="reply">
-                <img th:src="@{/images/board/avatar.png}" class="write_img">
-                <div class="reply-write">
-                    <input type="text" id="reply-input" placeholder="댓글을 남겨주세요">
-                </div>
-                <input type="button" value="댓글" id="reply-write">
-            </div>
-            
-            <div class="reply-title">댓글 <span>6</span></div>
-
-            <!-- 댓글목록 -->
-            <div class="reply-container">
-                <div class="reply-list">
-                    <div class="reply-profile">
-                        <img th:src="@{/images/board/avatar.png}" class="profile_img">
-                    </div>
-                    <div class="reply-content">
-                        <p class="p3">jihun</p>
-                        <p>내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다</p>
-                        <div class="flex-between">
-                            <p class="pp3">2024.02.01 </p>
-                            <div class="reply-btns">
-                                <button type="button" class="update">수정</button>
-                                <button type="button" class="delete">삭제</button>
+        <form id="comment-form">
+            <section class="detail">
+                <div id="detail-board">
+                    <div class="detail-list">
+                        <div class="detail-title">
+                            <p>제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다</p>
+                        </div>
+                        <div class="detail-profile">
+                            <img th:src="@{/images/board/avatar.png}" class="profile_img">
+                            <div class="profile1">
+                                <p class="pp1">jihun</p>
+                                <p class="pp2">2024.02.01 </p>
+                            </div>
+                        </div>
+                        <div class="detail_img">
+                            <img th:src="@{/images/board/bg_default.png}" class="detail-img">
+                        </div>
+                        <div class="detail-content">
+                            <p>내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다</p>
+                        </div>
+                        <div>
+                            <span class="sp4"><i class="fa-regular fa-eye"></i> 1 </span>
+                            <span class="sp5"><i class="fa-regular fa-heart"></i> 1 </span>
+                            <span class="sp6"><i class="fa-regular fa-comment"></i> 1 </span>
+                            <div class="star-container">
+                                <i class="fa-solid fa-star"></i> 
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="reply-list" th:each="comment: ${commentList}">
-                    <div class="reply-profile">
-                        <img th:src="@{/images/board/avatar.png}" class="profile_img">
-                    </div>
-                    <div class="reply-content">
-                        <p class="p3" th:text="${comment.author}"></p>
-                        <p th:text="${comment.content}">
 
-                        </p>
-                        <div class="flex-between">
-                            <p class="pp3" th:text="${comment.createdDate}">2024.02.01 </p>
-                            <div class="reply-btns">
-                                <button type="button" class="update">수정</button>
-                                <button type="button" class="delete">삭제</button>
-                            </div>
+                    <!-- 댓글입력 -->
+                    
+                    <div class="reply">
+                        <img th:src="@{/images/board/avatar.png}" class="write_img">
+                        <div class="reply-write">
+                            <input type="text" id="reply-input" placeholder="댓글을 남겨주세요">
                         </div>
+                        <button type="submit" value="댓글" id="reply-write">댓글</button>
+                    </div>
+                    
+                    <div class="reply-title">댓글 <span>6</span></div>
+
+                    <!-- 댓글목록 -->
+                    <div class="reply-container">
+                        <div class="reply-list" th:each="comment: ${commentList}">
+                            <div class="reply-profile">
+                                <img th:src="@{/images/board/avatar.png}" class="profile_img">
+                            </div>
+                            <div class="reply-content">
+                                <p class="p3" th:text="${comment.author}"></p>
+                                <p th:text="${comment.content}">
+                                </p>
+                                <div class="flex-between">
+                                    <p class="pp3" th:text="${comment.createdDate}">2024.02.01 </p>
+                                    <div class="reply-btns">
+                                        <button type="button" class="update">수정</button>
+                                        <button type="button" class="delete">삭제</button>
+                                    </div>
+                                </div>
+                        </div>
+                    
+                    </div>
+                
+                    <div class="backspace">
+                        <a name="boardType" th:href="@{/board/}+${boardType}"><button id="write2">목록</button></a>
+                    </div>
                 </div>
-             
-            </div>
-           
-            <div class="backspace">
-                <a name="boardType" th:href="@{/board/}+${boardType}"><button id="write2">목록</button></a>
-            </div>
-        </div>
-    </section>
+            </section>
+        </form>
 	</div>
     <div th:replace="~{footer::footer-fragment}"></div>
 </body>
+<script>
+    $(document).ready(function() {
+        $("#comment-form").submit(function(e) {
+            e.preventDefault();
+            const value = $("#reply-input").val();
+            const payload = {
+                commnet: value,
+            };
+            console.log(payload);
+        });
+    })
+</script>
 </html>

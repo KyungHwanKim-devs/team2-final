@@ -76,7 +76,28 @@
             <a th:href="@{/board/write(boardType='review')}"><button id="write">글쓰기</button></a>
         </div>
     </div>
-    
+        <!-- 페이지 영역 -->
+        <div id="page" class="pagination-wrap">
+            <div id="pagination">
+                <!-- 이전 페이지 -->
+                <!-- 2page 클릭하면 db 페이지는 1page -->
+                <a th:href="${reviewList.first}? '#' : 
+                    @{/board/list(page=${reviewList.number})}"><img th:src="@{/images/job/page_prev.svg}" alt="prev"></a>
+                <!-- 페이지 번호 블럭 -->
+                <span th:each="page: ${#numbers.sequence(startPage, endPage)}">
+                 <!-- 현재 페이지는 링크없이 숫자만 표시 -->
+                    <span th:if="${page == reviewList.number + 1}"  
+                        th:text="${page}" class="current_page"></span>
+                    <span th:if="${page != reviewList.number + 1}">
+                        <a th:href="@{/rboard/list(page=${page})}" th:text="${page}"></a>
+                    </span>
+                </span>
+                <!-- 다음 페이지 -->
+                <!-- 현재 2page -> 3page  실제페이지는 1page-->
+                <a th:href="${reviewList.last} ? '#' : 
+                        @{/rboard/list(page=${reviewList.number+2})}"><img th:src="@{/images/job/page_next.svg}" alt="map"></a>
+            </div>
+        </div>
     <div th:replace="~{footer::footer-fragment}"></div>
 </body>
 <script>
