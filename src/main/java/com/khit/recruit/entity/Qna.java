@@ -17,19 +17,19 @@ public class Qna extends BaseEntity{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(nullable = false)
+	@Column
 	private String title;
 	
-	@Column(nullable = false)
+	@Column
 	private String author;
 	
-	@Column(nullable = false)
+	@Column
 	private String content;
 	
-	@Column(nullable = false)
+	@Column
 	private Integer likes;
 	
-	@Column(nullable = false)
+	@Column
 	private Integer views;
 
 

@@ -17,19 +17,19 @@ public class Free extends BaseEntity{
 	@Column(name = "free_id")
 	private Long id;
 	
-	@Column(nullable = false)
+	@Column
 	private String title;
-	
-	@Column(nullable = false)
+
+	@Column
 	private String author;
-	
-	@Column(nullable = false)
+
+	@Column
 	private String content;
 	
-	@Column(nullable = false)
+	@Column
 	private Integer likes;
 	
-	@Column(nullable = false)
+	@Column
 	private Integer views;
 
 

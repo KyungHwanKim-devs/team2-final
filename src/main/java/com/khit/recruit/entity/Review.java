@@ -17,13 +17,13 @@ public class Review extends BaseEntity{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(nullable = false)
+	@Column
 	private String title;
 	
-	@Column(nullable = false)
+	@Column
 	private String author;
 	
-	@Column(nullable = false)
+	@Column
 	private String content;
 
 	@Column
@@ -32,13 +32,13 @@ public class Review extends BaseEntity{
 	@Column
 	private String filepath;
 
-	@Column(nullable = false)
+	@Column
 	private Integer likes;
 	
-	@Column(nullable = false)
+	@Column
 	private Integer views;
 
-	@Column(nullable = false)
+	@Column
 	private Integer rating;
 
 
