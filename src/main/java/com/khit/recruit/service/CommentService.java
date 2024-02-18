@@ -41,7 +41,7 @@ private final CommentRepository commentRepository;
 //		resumeRepository.save(resume);
 //	}
 
-	public void commentSave(Comment comment) throws IllegalStateException, IOException {
+	public void commentSave(Comment comment)  {
 		commentRepository.save(comment);
 	}
 

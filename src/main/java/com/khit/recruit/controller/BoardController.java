@@ -119,24 +119,22 @@ public class BoardController {
 			@PathVariable Long id,
 			@RequestParam(name = "boardType") String boardType
 	) {
-		System.out.println("model : " + comment);
-		System.out.println("boardType : " + boardType);
-		System.out.println("id : " + id);
-//		switch (boardType) {
-//			case "free" -> {
-//				Free free = boardService.sa(id);
-//				model.addAttribute("board", free);
-//			}
-//			case "qna" -> {
-//				Qna qna = boardService.findQnaById(id);
-//				model.addAttribute("board", qna);
-//			}
-//			case "noti" -> {
-//				Noti noti = boardService.findNotiById(id);
-//				model.addAttribute("board", noti);
-//			}
-//		}
-		return "redirect:/resume/main";
+		comment.setId(null);
+		switch (boardType) {
+			case "free" -> {
+				comment.setFree(boardService.findFreeById(id));
+				commentService.commentSave(comment);
+			}
+			case "qna" -> {
+				comment.setQna(boardService.findQnaById(id));
+				commentService.commentSave(comment);
+			}
+			case "noti" -> {
+				comment.setNoti(boardService.findNotiById(id));
+				commentService.commentSave(comment);
+			}
+		}
+		return "redirect:/board/detail/" + id + "?boardType=" + boardType;
 	}
 	@GetMapping("/detail/{id}")
 	public String boardDetailForm(

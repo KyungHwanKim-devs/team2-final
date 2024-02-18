@@ -149,6 +149,15 @@ public class BoardService {
 	public void notiSave(Noti noti) {
 		notiRepository.save(noti);
 	}
+//	public void qnaSave(Qna qna) {
+//		qnaRepository.save(qna);
+//	}
+//	public void freeSave(Free free) {
+//		freeRepository.save(free);
+//	}
+//	public void reviewSave(Review review) {
+//		reviewRepository.save(review);
+//	}
 
 	public Free findFreeById(Long id) {
         return freeRepository.findById(id)
