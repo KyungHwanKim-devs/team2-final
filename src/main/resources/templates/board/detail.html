@@ -77,7 +77,7 @@
                                 <p th:text="${comment.content}">
                                 </p>
                                 <div class="flex-between">
-                                    <p class="pp3" th:text="${comment.createdDate}">2024.02.01 </p>
+                                    <p class="pp3" th:text="${#dates.format(comment.createdDate, 'yyyy.MM.dd')}"></p>
                                     <div class="reply-btns">
                                         <form id="commnet-update-form">
                                             <button type="submit" class="update">수정</button>
