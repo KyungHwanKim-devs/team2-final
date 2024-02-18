@@ -17,25 +17,25 @@
                 <div id="detail-board">
                     <div class="detail-list">
                         <div class="detail-title">
-                            <p>제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다</p>
+                            <p th:text="${board.title}"></p>
                         </div>
                         <div class="detail-profile">
                             <img th:src="@{/images/board/avatar.png}" class="profile_img">
                             <div class="profile1">
-                                <p class="pp1">jihun</p>
-                                <p class="pp2">2024.02.01 </p>
+                                <p class="pp1" th:text="${board.author}"></p>
+                                <p class="pp2" th:text="${#dates.format(board.createdDate, 'yyyy.MM.dd')}"></p>
                             </div>
                         </div>
                         <div class="detail_img">
                             <img th:src="@{/images/board/bg_default.png}" class="detail-img">
                         </div>
                         <div class="detail-content">
-                            <p>내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다</p>
+                            <p th:text="${board.content}"></p>
                         </div>
                         <div>
-                            <span class="sp4"><i class="fa-regular fa-eye"></i> 1 </span>
-                            <span class="sp5"><i class="fa-regular fa-heart"></i> 1 </span>
-                            <span class="sp6"><i class="fa-regular fa-comment"></i> 1 </span>
+                            <span class="sp4"><i class="fa-regular fa-eye"></i> <span th:text="${board.views}"></span></span>
+                            <span class="sp5"><i class="fa-regular fa-heart"></i> <span th:text="${board.likes}"></span></span>
+                            <span class="sp6"><i class="fa-regular fa-comment"></i> <span th:text="${#lists.size(commentList)}"></span> </span>
                             <div class="star-container">
                                 <i class="fa-solid fa-star"></i> 
                                 <i class="fa-solid fa-star"></i>
@@ -89,14 +89,52 @@
     <div th:replace="~{footer::footer-fragment}"></div>
 </body>
 <script>
-    $(document).ready(function() {
+        function validateEmpty(array) {
+        // 빈 값 체크
+        const emptyCheck = array.some((temp) => {
+            if(!temp.value || !temp.value.trim()) {
+                alert(temp.name + "을(를) 입력하세요.");
+                return true;
+            }
+            return false
+        })
+        return !emptyCheck
+    }
+    $(document).ready(function() { 
+        function pageChange(value) {
+			if(value == "review") {
+				$(".detail-img").css("display", "block");
+				$(".star-container").css("display", "inline-block");
+			} else {
+				$(".detail-img").css("display", "none");
+				$(".star-container").css("display", "none");
+			}
+		}
+        const url = new URL(window.location.href);
+        const boardType = url.searchParams.get("boardType");
+
+        pageChange(boardType);
+
+        // $("#category").after(function() {
+		// 	const value = $(this).val();
+		// 	pageChange(value);
+		// })
         $("#comment-form").submit(function(e) {
             e.preventDefault();
-            const value = $("#reply-input").val();
+            const comment = $("#reply-input").val();
+            const validateInfo = [
+                {
+                    name: "댓글",
+                    value: comment
+                },
+            ]
             const payload = {
-                commnet: value,
+                commnet: comment,
             };
-            console.log(payload);
+            if (!validateEmpty(validateInfo)) {
+                return;
+            }
+            this.submit();
         });
     })
 </script>

@@ -48,7 +48,7 @@
                             <td th:text="${noti.id}"></td>
                             <td><a th:href="@{/board/detail/}+${noti.id}+@{?boardType=noti}" th:text="${noti.title}"></a></td>
                             <td th:text="${noti.author}"></td>
-                            <td th:text="${noti.createdDate}"></td>
+                            <td th:text="${#dates.format(noti.createdDate, 'yyyy.MM.dd')}"></td>
                             <td th:text="${noti.views}"></td>
                         </tr>
                     </tbody>

@@ -347,7 +347,7 @@ table {
 
 .star-container {
   margin-left: 20px;
-  display: inline-block;
+  display: none;
 }
     
 .pp1{
@@ -366,6 +366,7 @@ table {
 }
 
 .detail-img{
+  display: none;
   width: 1050px;
   height: 740px;
 }

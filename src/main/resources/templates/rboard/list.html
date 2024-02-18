@@ -44,7 +44,7 @@
                             <img th:src="@{/images/board/avatar.png}" class="profile_img">
                             <div class="profile">
                                 <span class="p1" th:text="${review.author}"></span>
-                                <span class="p2" th:text="${review.createdDate}"></span>
+                                <span class="p2" th:text="${#dates.format(review.createdDate, 'yyyy.MM.dd')}"></span>
                                 <span class="sp1" th:text="${review.likes}"><i class="fa-regular fa-eye"></i></span>
                                 <span class="sp2" th:text="${review.rating}"><i class="fa-regular fa-heart"></i> 1 </span>
                                 <span class="sp3" th:text="${review.views}"><i class="fa-regular fa-comment"></i> 1 </span>
