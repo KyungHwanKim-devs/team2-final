@@ -28,12 +28,25 @@ public class Comment extends BaseEntity{
 	@Column
 	private String avatarURL;
 
-//	@JsonIgnore
-//	@ManyToOne(fetch = LAZY)
-//	@JoinColumn(name = "users_id")
-//	private Users users;
+	@JsonIgnore
+	@ManyToOne(fetch = LAZY)
+	@JoinColumn(name = "free_id")
+	private Free free;
 
+	@JsonIgnore
+	@ManyToOne(fetch = LAZY)
+	@JoinColumn(name = "noti_id")
+	private Noti noti;
 
+	@JsonIgnore
+	@ManyToOne(fetch = LAZY)
+	@JoinColumn(name = "qna_id")
+	private Qna qna;
+
+	@JsonIgnore
+	@ManyToOne(fetch = LAZY)
+	@JoinColumn(name = "review_id")
+	private Review review;
 
 	
 }

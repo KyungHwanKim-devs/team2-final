@@ -74,27 +74,22 @@
                         </div>
                     </div>
                 </div>
-                <div class="reply-list">
+                <div class="reply-list" th:each="comment: ${commentList}">
                     <div class="reply-profile">
                         <img th:src="@{/images/board/avatar.png}" class="profile_img">
                     </div>
                     <div class="reply-content">
-                        <p class="p3">jihun</p>
-                        <p>내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다
-                            내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다
-                            내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다
-                            내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다
+                        <p class="p3" th:text="${comment.author}"></p>
+                        <p th:text="${comment.content}">
 
                         </p>
                         <div class="flex-between">
-                            <p class="pp3">2024.02.01 </p>
+                            <p class="pp3" th:text="${comment.createdDate}">2024.02.01 </p>
                             <div class="reply-btns">
                                 <button type="button" class="update">수정</button>
                                 <button type="button" class="delete">삭제</button>
                             </div>
                         </div>
-                   
-                    </div>
                 </div>
              
             </div>
